@@ -60,10 +60,7 @@ func (it *ChaosNodeReconciler) Reconcile(ctx context.Context, request reconcile.
 		return reconcile.Result{}, client.IgnoreNotFound(err)
 	}
 
-	if !v1alpha1.IsChaosTemplateType(node.Spec.Type) {
-		return reconcile.Result{}, nil
-	}
-	if !node.DeletionTimestamp.IsZero() {
+	if !v1alpha1.IsChaosTemplateType(node.Spec.Type) || !node.DeletionTimestamp.IsZero() {
 		return reconcile.Result{}, nil
 	}
 
